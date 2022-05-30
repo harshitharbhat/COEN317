@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Broker {
 
-
     static Map<String, Set<Integer>> topicSubscriberMap = new ConcurrentHashMap<>();
     public static void main(String[] args) throws IOException {
         int threadId = 0;
@@ -20,12 +19,11 @@ public class Broker {
         ServerSocket curSocket = new ServerSocket(port);
         System.out.println("Broker on port" + port);
 
-
         while (true) {
             Socket socket = null;
             try {
                 socket = curSocket.accept();
-                System.out.println("Broker id: " + port + " request recieved at : " + socket);
+                System.out.println("Broker id: " + port + " request received at : " + socket);
                 Thread t = new RequestHandler(socket, ++threadId, port,topicSubscriberMap);
                 t.start();
             } catch (Exception e){
@@ -127,9 +125,6 @@ class RequestHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
 
     }
 }
